@@ -17,9 +17,11 @@ class SwipesController < ApplicationController
     )
 
     if params[:liked] == 'true' && Swipe.exists?(swiper: swiped_user, swiped: current_user, liked: true)
-      flash[:notice] = "🎉 It's a Match!"
+      flash[:notice] = "It’s a match! You and #{swiped_user.name} liked each other."
+    else
+      flash[:notice] = "Swipe recorded successfully."
     end
 
-    redirect_to swipe_path
+    redirect_to root_path
   end
 end
