@@ -1,28 +1,67 @@
-<h2 class="text-2xl font-bold text-center mb-6">Log in</h2>
+<!-- app/views/devise/sessions/new.html.erb -->
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "max-w-md mx-auto bg-white p-8 rounded-lg shadow"}) do |f| %>
-  <div class="mb-4">
-    <%= f.label :email, class: "block text-gray-700 font-semibold mb-2" %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+<h2 class="text-2xl font-bold text-center mb-8 text-[#ED4F30] drop-shadow animate-fade-in">Log in</h2>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "max-w-md mx-auto bg-white/90 p-8 rounded-2xl shadow-xl animate-fade-in backdrop-blur relative"}) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <!-- Social login (placeholder, for effect) -->
+  <div class="mb-6">
+    <button type="button" class="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white border border-[#ED4F30]/30 text-[#ED4F30] font-bold hover:bg-[#ED4F30]/10 hover:text-[#990000] transition group mb-4">
+      <i class="fab fa-google group-hover:animate-bounce"></i> Log in with Google
+    </button>
+    <div class="flex items-center gap-2">
+      <hr class="flex-1 border-gray-200">
+      <span class="text-gray-400 text-xs font-semibold">or</span>
+      <hr class="flex-1 border-gray-200">
+    </div>
   </div>
 
-  <div class="mb-4">
-    <%= f.label :password, class: "block text-gray-700 font-semibold mb-2" %>
-    <%= f.password_field :password, autocomplete: "current-password", class: "w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+  <div class="mb-6 relative group">
+    <%= f.label :email, class: "block text-[#232323] font-semibold mb-2" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "your.name@university.edu", class: "w-full px-4 py-3 bg-gray-100 border border-[#ED4F30]/20 rounded-lg text-[#232323] placeholder-[#A1A7C2] focus:outline-none focus:ring-2 focus:ring-[#ED4F30] transition" %>
+    <span class="absolute right-3 top-3 text-[#ED4F30] opacity-0 group-focus-within:opacity-100 transition"><i class="fas fa-envelope"></i></span>
+  </div>
+
+  <div class="mb-6 relative group">
+    <%= f.label :password, class: "block text-[#232323] font-semibold mb-2" %>
+    <%= f.password_field :password, autocomplete: "current-password", placeholder: "Your password", class: "w-full px-4 py-3 bg-gray-100 border border-[#ED4F30]/20 rounded-lg text-[#232323] placeholder-[#A1A7C2] focus:outline-none focus:ring-2 focus:ring-[#ED4F30] transition", id: "user_password" %>
+    <button type="button" tabindex="-1" onclick="togglePassword('user_password', this)" class="absolute right-3 top-9 text-[#ED4F30] hover:text-[#EFDE56] focus:outline-none transition">
+      <i class="fas fa-eye"></i>
+    </button>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="mb-4 flex items-center">
-      <%= f.check_box :remember_me, class: "mr-2" %>
-      <%= f.label :remember_me, class: "text-gray-700" %>
+    <div class="mb-6 flex items-center">
+      <%= f.check_box :remember_me, class: "mr-2 accent-[#ED4F30]" %>
+      <%= f.label :remember_me, class: "text-[#A1A7C2]" %>
     </div>
   <% end %>
 
-  <div class="mb-4">
-    <%= f.submit "Log in", class: "w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-200" %>
+  <div>
+    <button type="submit"
+            class="w-full bg-[#ED4F30] text-white hover:bg-[#990000] font-bold py-3 rounded-xl shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2 group">
+      <span>Log In</span>
+      <i class="fas fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+    </button>
   </div>
 <% end %>
 
-<div class="max-w-md mx-auto mt-4">
+<div class="max-w-md mx-auto mt-6 text-center">
   <%= render "devise/shared/links" %>
 </div>
+
+<script>
+    function togglePassword(fieldId, btn) {
+        const input = document.getElementById(fieldId);
+        if (input.type === "password") {
+            input.type = "text";
+            btn.querySelector('i').classList.remove('fa-eye');
+            btn.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = "password";
+            btn.querySelector('i').classList.remove('fa-eye-slash');
+            btn.querySelector('i').classList.add('fa-eye');
+        }
+    }
+</script>

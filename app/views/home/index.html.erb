@@ -1,0 +1,140 @@
+<!-- Animated Gradient Background Layer -->
+<div class="absolute inset-0 -z-10 bg-[#F7F7F7] pointer-events-none"></div>
+<!-- Decorative Blobs for Depth -->
+<div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#990000]/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-32 right-0 w-80 h-80 rounded-full bg-[#ED4F30]/10 blur-2xl pointer-events-none"></div>
+
+<!-- Hero Section -->
+<section class="relative pt-20 pb-16 md:pt-32 md:pb-24">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight tracking-tight text-[#232323]">
+      Find your <span class="text-[#ED4F30]">campus roommate</span> in minutes
+    </h1>
+    <p class="text-lg sm:text-xl mb-10 text-[#232323] font-medium max-w-2xl mx-auto">
+      Swipe through verified students from your university, use smart campus filters, and start chatting instantly.<br>
+      <span class="text-[#ED4F30]">No spam. No scams. Just real students.</span>
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+      <%= link_to "Get Started Free", new_user_registration_path,
+                  class: "bg-[#ED4F30] text-white font-bold px-10 py-4 rounded-2xl shadow-xl hover:bg-[#990000] hover:text-white transition text-lg" %>
+      <%= link_to "See Demo", "#demo",
+                  class: "bg-white border border-[#EAEAEA] text-[#232323] font-semibold px-10 py-4 rounded-2xl shadow hover:bg-[#F7F7F7] transition text-lg" %>
+    </div>
+    <!-- Trust Badges -->
+    <div class="flex flex-wrap justify-center gap-4 mt-4">
+      <span class="flex items-center gap-2 bg-[#F7F7F7] px-4 py-2 rounded-full text-sm font-medium text-[#ED4F30] shadow">
+        <i class="fas fa-university"></i> University students only
+      </span>
+      <span class="flex items-center gap-2 bg-[#F7F7F7] px-4 py-2 rounded-full text-sm font-medium text-[#C7AF6B] shadow">
+        <i class="fas fa-envelope"></i> .edu email required
+      </span>
+      <span class="flex items-center gap-2 bg-[#F7F7F7] px-4 py-2 rounded-full text-sm font-medium text-[#232323] shadow">
+        <i class="fas fa-lock"></i> Private & secure
+      </span>
+    </div>
+  </div>
+  <!-- Hero Demo Illustration -->
+  <div class="max-w-2xl mx-auto mt-16" id="demo">
+    <div class="relative p-8 md:p-12 rounded-3xl bg-white shadow-2xl border border-[#EAEAEA]">
+      <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+        <!-- Demo Card: Swipe UI -->
+        <div class="relative flex flex-col items-center justify-center">
+          <div class="relative w-64 h-80 bg-gradient-to-br from-[#F7F7F7] via-white to-[#ED4F30]/10 rounded-3xl shadow-xl border border-[#ED4F30]/20 flex flex-col items-center justify-between p-6">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Demo Student" class="w-24 h-24 rounded-full border-4 border-[#ED4F30]/40 shadow-lg mx-auto mb-3">
+            <div>
+              <h3 class="text-2xl font-bold text-[#232323]">Alex, 19</h3>
+              <div class="text-sm text-[#232323] mb-2">Stony Brook · Comp Sci · Early Riser</div>
+              <span class="inline-block bg-[#ED4F30]/10 text-[#ED4F30] px-3 py-1 rounded-full text-xs font-semibold">No Pets</span>
+            </div>
+            <div class="flex gap-4 mt-4">
+              <button class="w-12 h-12 rounded-full bg-[#C7AF6B] hover:bg-[#ED4F30] text-black shadow-lg flex items-center justify-center text-xl transition"><i class="fas fa-times"></i></button>
+              <button class="w-12 h-12 rounded-full bg-[#ED4F30] hover:bg-[#C7AF6B] text-white shadow-lg flex items-center justify-center text-xl transition"><i class="fas fa-heart"></i></button>
+            </div>
+          </div>
+          <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-[#232323]">Swipe right to match with a fellow Seawolf!</span>
+        </div>
+        <!-- Demo: Filters UI -->
+        <div class="relative flex flex-col items-center justify-center">
+          <div class="w-64 bg-gradient-to-br from-white via-[#F7F7F7] to-[#ED4F30]/10 rounded-3xl shadow-xl border border-[#C7AF6B]/20 p-6">
+            <h4 class="text-lg font-bold text-[#C7AF6B] mb-3 flex items-center gap-2"><i class="fas fa-filter"></i> Campus Filters</h4>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <span class="bg-[#ED4F30]/10 text-[#ED4F30] px-3 py-1 rounded-full text-xs font-semibold">Major: CS</span>
+              <span class="bg-[#C7AF6B]/10 text-[#C7AF6B] px-3 py-1 rounded-full text-xs font-semibold">No Pets</span>
+              <span class="bg-[#F7F7F7] text-[#232323] px-3 py-1 rounded-full text-xs font-semibold">Early Riser</span>
+              <span class="bg-[#ED4F30]/10 text-[#ED4F30] px-3 py-1 rounded-full text-xs font-semibold">Cleanliness: 5/5</span>
+            </div>
+            <div class="mt-4 flex gap-2 justify-center">
+              <button class="bg-[#ED4F30] text-white px-4 py-2 rounded-lg font-semibold text-sm shadow hover:bg-[#C7AF6B] hover:text-[#232323] transition">Apply</button>
+              <button class="bg-white border border-[#EAEAEA] text-[#232323] px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#F7F7F7] transition">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Demo CTA -->
+    <div class="text-center mt-10">
+      <%= link_to "Try RoomMatch Free", new_user_registration_path,
+                  class: "inline-block bg-[#ED4F30] hover:bg-[#990000] text-white font-extrabold px-12 py-5 rounded-2xl shadow-2xl hover:scale-105 transition text-xl tracking-wide" %>
+      <div class="mt-2 text-xs text-[#232323]">No credit card. No spam. Just campus roommates.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-[#F7F7F7]">
+  <div class="max-w-6xl mx-auto px-6 grid sm:grid-cols-3 gap-10">
+    <article class="text-center p-8 rounded-3xl bg-white shadow-xl border border-[#EAEAEA]">
+      <i class="fas fa-bolt text-[#ED4F30] text-4xl mb-4"></i>
+      <h3 class="text-xl font-semibold mb-2 text-[#232323]">Swipe to Match</h3>
+      <p class="text-base text-[#232323]">Find campus roommates in seconds with a familiar, fun swipe interface.</p>
+    </article>
+    <article class="text-center p-8 rounded-3xl bg-white shadow-xl border border-[#EAEAEA]">
+      <i class="fas fa-filter text-[#C7AF6B] text-4xl mb-4"></i>
+      <h3 class="text-xl font-semibold mb-2 text-[#232323]">Smart Campus Filters</h3>
+      <p class="text-base text-[#232323]">Zero-in on study habits, cleanliness, pets, majors, and more-just like campus housing apps.</p>
+    </article>
+    <article class="text-center p-8 rounded-3xl bg-white shadow-xl border border-[#EAEAEA]">
+      <i class="fas fa-shield text-[#ED4F30] text-4xl mb-4"></i>
+      <h3 class="text-xl font-semibold mb-2 text-[#232323]">.edu Verification</h3>
+      <p class="text-base text-[#232323]">Only students with .edu emails-real students, real connections.</p>
+    </article>
+  </div>
+</section>
+
+<!-- Social Proof & Testimonials -->
+<section class="py-16 bg-transparent">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10 text-[#ED4F30]">Why university students love RoomMatch</h2>
+    <div class="grid sm:grid-cols-3 gap-8">
+      <div class="bg-white p-6 rounded-2xl shadow-xl border border-[#EAEAEA] text-center">
+        <div class="flex justify-center mb-3">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial 1" class="w-14 h-14 rounded-full border-2 border-[#ED4F30]/40 shadow">
+        </div>
+        <p class="text-base text-[#232323] mb-2">“I found a roommate at my university who’s now my best friend-in under an hour!”</p>
+        <div class="text-xs text-[#ED4F30] font-bold">Jess · NYU</div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-xl border border-[#EAEAEA] text-center">
+        <div class="flex justify-center mb-3">
+          <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Testimonial 2" class="w-14 h-14 rounded-full border-2 border-[#C7AF6B]/40 shadow">
+        </div>
+        <p class="text-base text-[#232323] mb-2">“RoomMatch made moving into campus housing way less stressful. No spam, just real students.”</p>
+        <div class="text-xs text-[#C7AF6B] font-bold">Mike · Stony Brook</div>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-xl border border-[#EAEAEA] text-center">
+        <div class="flex justify-center mb-3">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Testimonial 3" class="w-14 h-14 rounded-full border-2 border-[#ED4F30]/40 shadow">
+        </div>
+        <p class="text-base text-[#232323] mb-2">“I matched with someone who shares my major and my love for study groups.”</p>
+        <div class="text-xs text-[#ED4F30] font-bold">Sam · Columbia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-20 bg-gradient-to-tr from-[#F7F7F7] via-white to-[#F7F7F7] text-center">
+  <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-[#232323]">Ready to find your perfect campus roommate?</h2>
+  <%= link_to "Join RoomMatch Free", new_user_registration_path,
+              class: "inline-block bg-[#ED4F30] hover:bg-[#990000] text-white font-extrabold px-12 py-5 rounded-2xl shadow-2xl hover:scale-105 transition text-xl tracking-wide" %>
+  <div class="mt-2 text-base text-[#232323]">It only takes 60 seconds. 100% free for university students.</div>
+</section>

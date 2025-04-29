@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  root "swipes#show"
+  # 1️⃣ Signed-in users hit swipes#show at "/"
+  authenticated :user do
+    root "swipes#show", as: :authenticated_root
+  end
+
+  # 2️⃣ Everyone else (and defini­tively defines root_path) → home#index
+  root "home#index"    # <–– this defines root_path again
 
   devise_for :users
 
@@ -8,14 +14,12 @@ Rails.application.routes.draw do
   end
 
   resource :profiles, only: [:edit, :update]
-  resources :swipes, only: [:show, :create]
-  resources :matches, only: [:index]
+  resources :swipes,   only: [:show, :create]
+  resources :matches,  only: [:index]
 
-  # Messaging between matched users
   resources :users, only: [] do
     resources :messages, only: [:index, :create]
   end
 
-  # Health check (optional)
   get "up" => "rails/health#show", as: :rails_health_check
 end

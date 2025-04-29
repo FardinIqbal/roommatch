@@ -1,73 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html class="dark">
 <head>
   <title>RoomMatch</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 </head>
+<body class="flex flex-col min-h-screen bg-[#F7F7F7] text-[#232323] relative overflow-x-hidden font-['Inter','Space_Grotesk',system-ui,sans-serif]">
 
-<body class="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+<!-- Decorative Blobs for Depth -->
+<div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#990000]/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-32 right-0 w-72 h-72 rounded-full bg-[#ED4F30]/10 blur-2xl pointer-events-none"></div>
 
 <!-- Navbar -->
-<nav class="bg-white shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center">
-      <div class="flex-shrink-0 text-2xl font-bold text-blue-600">
-        <%= link_to "RoomMatch", root_path, class: "hover:text-blue-700 transition" %>
+<nav class="sticky top-0 z-40 bg-white/95 shadow-lg transition-all duration-700">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-[#ED4F30] shadow-lg"></span>
+        <%= link_to "RoomMatch", root_path, class: "text-2xl font-extrabold tracking-tight font-['Space_Grotesk'] text-[#990000] hover:text-[#ED4F30] transition-all duration-300" %>
       </div>
-      <div class="hidden md:flex md:items-center md:space-x-8">
+      <!-- Hamburger (Mobile) -->
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-[#990000] hover:text-[#ED4F30] focus:outline-none transition-all duration-300">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+      </div>
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center space-x-6">
         <% if user_signed_in? %>
-          <%= link_to "Swipe", root_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
-          <%= link_to "Matches", matches_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
-          <%= link_to "Profile", edit_profiles_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
-          <%= link_to "Filters", edit_filters_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-red-500 hover:text-red-700 font-semibold transition" %>
+          <%= link_to "Swipe", root_path,
+                      class: "relative text-[#232323] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+          <%= link_to "Matches", matches_path,
+                      class: "relative text-[#232323] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+          <%= link_to "Profile", edit_profiles_path,
+                      class: "relative text-[#232323] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+          <%= link_to "Filters", edit_filters_path,
+                      class: "relative text-[#232323] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete },
+                      class: "relative text-[#ED4F30] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#C7AF6B] hover:bg-[#F7F7F7]" %>
         <% else %>
-          <%= link_to "Login", new_user_session_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Login", new_user_session_path,
+                      class: "relative text-[#232323] font-medium text-base px-3 py-2 rounded-lg transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+          <%= link_to "Sign Up", new_user_registration_path,
+                      class: "relative text-[#ED4F30] font-semibold text-base px-5 py-2 rounded-lg bg-[#ED4F30]/10 shadow-lg transition-all duration-300 ease-in-out hover:bg-[#ED4F30]/30 hover:text-[#990000] hover:scale-105 hover:shadow-xl" %>
         <% end %>
       </div>
     </div>
   </div>
+  <!-- Mobile Nav Drawer -->
+  <div id="mobile-menu" class="md:hidden hidden bg-white/95 shadow-xl transition-all duration-500">
+    <div class="flex flex-col py-4 space-y-2 px-6">
+      <% if user_signed_in? %>
+        <%= link_to "Swipe", root_path,
+                    class: "relative text-[#232323] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+        <%= link_to "Matches", matches_path,
+                    class: "relative text-[#232323] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+        <%= link_to "Profile", edit_profiles_path,
+                    class: "relative text-[#232323] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+        <%= link_to "Filters", edit_filters_path,
+                    class: "relative text-[#232323] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete },
+                    class: "relative text-[#ED4F30] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#C7AF6B] hover:bg-[#F7F7F7]" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path,
+                    class: "relative text-[#232323] font-semibold text-lg px-3 py-2 rounded-md transition-all duration-300 ease-in-out hover:text-[#ED4F30] hover:bg-[#F7F7F7]" %>
+        <%= link_to "Sign Up", new_user_registration_path,
+                    class: "relative text-[#ED4F30] font-semibold text-lg px-5 py-2 rounded-lg bg-[#ED4F30]/10 shadow-lg transition-all duration-300 ease-in-out hover:bg-[#ED4F30]/30 hover:text-[#990000] hover:scale-105 hover:shadow-xl" %>
+      <% end %>
+    </div>
+  </div>
 </nav>
 
-<!-- Toast Flash Messages (Bottom-Right) -->
-<div id="flash-container" class="fixed bottom-4 right-4 space-y-4 z-50">
+<!-- Mobile Bottom Navigation Bar (only shown < md) -->
+<nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-[#990000] z-50 pb-[calc(env(safe-area-inset-bottom,0px))] shadow-2xl">
+  <ul class="flex justify-between items-stretch h-16">
+    <li class="flex-1 min-w-0">
+      <%= link_to root_path,
+                  class: "flex flex-col items-center justify-center gap-1 h-full transition-all duration-200 ease-in-out hover:text-[#ED4F30] hover:scale-105 focus:outline-none " +
+                    (current_page?(root_path) ? "text-[#ED4F30] font-bold" : "text-[#990000]"),
+                  role: "button",
+                  'aria-label': "Swipe",
+                  'aria-current': (current_page?(root_path) ? "page" : nil) do %>
+        <i class="fas fa-fire-alt fa-xl"></i>
+        <span class="text-sm leading-none mt-0.5">Swipe</span>
+      <% end %>
+    </li>
+    <li class="flex-1 min-w-0">
+      <%= link_to matches_path,
+                  class: "flex flex-col items-center justify-center gap-1 h-full transition-all duration-200 ease-in-out hover:text-[#ED4F30] hover:scale-105 focus:outline-none " +
+                    (current_page?(matches_path) ? "text-[#ED4F30] font-bold" : "text-[#990000]"),
+                  role: "button",
+                  'aria-label': "Matches",
+                  'aria-current': (current_page?(matches_path) ? "page" : nil) do %>
+        <i class="fas fa-heart fa-xl"></i>
+        <span class="text-sm leading-none mt-0.5">Matches</span>
+      <% end %>
+    </li>
+    <li class="flex-1 min-w-0">
+      <%= link_to edit_profiles_path,
+                  class: "flex flex-col items-center justify-center gap-1 h-full transition-all duration-200 ease-in-out hover:text-[#ED4F30] hover:scale-105 focus:outline-none " +
+                    (current_page?(edit_profiles_path) ? "text-[#ED4F30] font-bold" : "text-[#990000]"),
+                  role: "button",
+                  'aria-label': "Profile",
+                  'aria-current': (current_page?(edit_profiles_path) ? "page" : nil) do %>
+        <i class="fas fa-user fa-xl"></i>
+        <span class="text-sm leading-none mt-0.5">Profile</span>
+      <% end %>
+    </li>
+    <li class="flex-1 min-w-0">
+      <%= link_to edit_filters_path,
+                  class: "flex flex-col items-center justify-center gap-1 h-full transition-all duration-200 ease-in-out hover:text-[#ED4F30] hover:scale-105 focus:outline-none " +
+                    (current_page?(edit_filters_path) ? "text-[#ED4F30] font-bold" : "text-[#990000]"),
+                  role: "button",
+                  'aria-label': "Filters",
+                  'aria-current': (current_page?(edit_filters_path) ? "page" : nil) do %>
+        <i class="fas fa-sliders-h fa-xl"></i>
+        <span class="text-sm leading-none mt-0.5">Filters</span>
+      <% end %>
+    </li>
+  </ul>
+</nav>
+
+<!-- Toast Flash Messages -->
+<div id="flash-container" class="fixed bottom-20 right-4 space-y-4 z-50">
   <% flash.each do |type, message| %>
     <% next if message.blank? %>
     <% color_classes = case type.to_sym
-                       when :notice then "bg-green-100 text-green-800 border-green-300"
-                       when :alert then "bg-red-100 text-red-800 border-red-300"
-                       else "bg-blue-100 text-blue-800 border-blue-300"
+                       when :notice then "bg-[#ED4F30]/10 border-l-4 border-[#ED4F30]"
+                       when :alert then "bg-[#990000]/10 border-l-4 border-[#990000]"
+                       else "bg-black/10 border-l-4 border-black"
                        end %>
-
     <div data-controller="flash"
-         class="relative transform transition-all duration-300 ease-out translate-x-8 opacity-0 animate-slide-in px-6 py-4 rounded-md shadow-lg border <%= color_classes %>">
-      <button data-action="click->flash#dismiss" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+         class="relative flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl <%= color_classes %> transition-all duration-500">
+      <i class="fas fa-info-circle text-2xl text-[#ED4F30]"></i>
+      <p class="text-base font-medium text-[#232323]"><%= message %></p>
+      <button data-action="click->flash#dismiss" class="absolute top-2 right-2 text-gray-400 hover:text-[#ED4F30] transition-all duration-300">
         <i class="fas fa-times"></i>
       </button>
-      <p class="text-sm font-semibold pr-6"><%= message %></p>
     </div>
   <% end %>
 </div>
 
 <!-- Main Content -->
-<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<main class="flex-grow max-w-3xl mx-auto w-full px-2 sm:px-6 lg:px-8 py-8 transition-all duration-700">
   <%= yield %>
 </main>
 
 <!-- Footer -->
-<footer class="bg-white border-t">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-gray-500">
-    &copy; <%= Time.now.year %> RoomMatch. All rights reserved.
+<footer class="bg-white border-t border-[#990000] mt-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-[#232323] tracking-wide">
+    &copy; <%= Time.now.year %> <span class="font-semibold text-[#ED4F30]">RoomMatch</span>. All rights reserved.
   </div>
 </footer>
 
+<!-- Stimulus for Mobile Nav Animations -->
+<script type="module">
+    document.addEventListener("DOMContentLoaded", function() {
+        const btn = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        btn.addEventListener("click", function() {
+            menu.classList.toggle("hidden");
+        });
+        menu.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                menu.classList.add("hidden");
+            });
+        });
+    });
+</script>
 </body>
 </html>
