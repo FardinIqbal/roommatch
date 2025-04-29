@@ -1,4 +1,32 @@
-<div>
-  <h1 class="font-bold text-4xl">Profiles#edit</h1>
-  <p>Find me in app/views/profiles/edit.html.erb</p>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-2xl font-bold mb-6 text-center">Edit Your Profile</h2>
+
+  <%= form_with model: @user, url: profiles_path, method: :patch, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :bio, "Bio", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :bio, rows: 4, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :school, "School", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :school, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :sleep_schedule, [["Early Bird", "early"], ["Night Owl", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :clean, "Are You a Clean Roommate?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :clean, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <%= f.submit "Save Profile", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
+  <% end %>
 </div>

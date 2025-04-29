@@ -1,4 +1,22 @@
-<div>
-  <h1 class="font-bold text-4xl">Filters#edit</h1>
-  <p>Find me in app/views/filters/edit.html.erb</p>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-2xl font-bold mb-4 text-center">Filter Roommates</h2>
+
+  <%= form_with url: filters_path, method: :patch, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :school, "School", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :school, value: @filters["school"], class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :clean, "Prefers Cleanliness?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :clean, [["No preference", ""], ["Yes", true], ["No", false]], { selected: @filters["clean"] }, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :sleep_schedule, [["No preference", ""], ["Early Bird", "early"], ["Night Owl", "night"]], { selected: @filters["sleep_schedule"] }, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <%= f.submit "Save Filters", class: "bg-blue-500 text-white px-4 py-2 rounded w-full" %>
+  <% end %>
 </div>

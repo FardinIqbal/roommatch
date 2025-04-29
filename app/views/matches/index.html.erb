@@ -1,4 +1,15 @@
-<div>
-  <h1 class="font-bold text-4xl">Matches#index</h1>
-  <p>Find me in app/views/matches/index.html.erb</p>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-2xl font-bold mb-4 text-center">Your Matches</h2>
+
+  <% if @matches.any? %>
+    <% @matches.each do |match| %>
+      <div class="border p-4 mb-4 rounded shadow">
+        <p class="text-lg font-semibold"><%= match.name %></p>
+        <p class="text-gray-600"><%= match.school %></p>
+        <p class="text-gray-700"><%= match.bio %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center text-gray-500">You have no matches yet. Keep swiping!</p>
+  <% end %>
 </div>

@@ -1,4 +1,23 @@
-<div>
-  <h1 class="font-bold text-4xl">Swipes#show</h1>
-  <p>Find me in app/views/swipes/show.html.erb</p>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-2xl font-bold mb-4 text-center">Find Your Roommate</h2>
+
+  <% if @user_to_swipe %>
+    <div class="text-center mb-6">
+      <p class="text-xl font-semibold"><%= @user_to_swipe.name %></p>
+      <p class="text-gray-600 mb-2"><%= @user_to_swipe.school %></p>
+      <p class="text-gray-700"><%= @user_to_swipe.bio %></p>
+    </div>
+
+    <div class="flex justify-center gap-6">
+      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: true), method: :post, class: "bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+        <i class="fas fa-thumbs-up"></i> Like
+      <% end %>
+
+      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: false), method: :post, class: "bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+        <i class="fas fa-thumbs-down"></i> Pass
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-500">No more users to swipe on!</p>
+  <% end %>
 </div>
