@@ -1,22 +1,27 @@
 <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-2xl font-bold mb-4 text-center">Filter Roommates</h2>
+  <h2 class="text-2xl font-bold mb-6 text-center">Filter Preferences</h2>
 
-  <%= form_with url: filters_path, method: :patch, local: true do |f| %>
+  <%= form_with model: @user, url: filters_path, method: :patch, local: true do |f| %>
     <div class="mb-4">
-      <%= f.label :school, "School", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :school, value: @filters["school"], class: "mt-1 block w-full border rounded p-2" %>
+      <%= f.label :filter_same_school, "Only show users from your school?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :filter_same_school, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
     <div class="mb-4">
-      <%= f.label :clean, "Prefers Cleanliness?", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :clean, [["No preference", ""], ["Yes", true], ["No", false]], { selected: @filters["clean"] }, class: "mt-1 block w-full border rounded p-2" %>
+      <%= f.label :filter_smoking, "Smoking preference", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :filter_smoking, [["Only non-smokers", true], ["Show all", ""], ["Only smokers", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :filter_clean, "Cleanliness preference", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :filter_clean, [["Only clean roommates", true], ["Show all", ""], ["Only messy roommates", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
     <div class="mb-6">
-      <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :sleep_schedule, [["No preference", ""], ["Early Bird", "early"], ["Night Owl", "night"]], { selected: @filters["sleep_schedule"] }, class: "mt-1 block w-full border rounded p-2" %>
+      <%= f.label :filter_sleep, "Sleep schedule preference", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :filter_sleep, [["Any", "any"], ["Early Birds", "early"], ["Night Owls", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
-    <%= f.submit "Save Filters", class: "bg-blue-500 text-white px-4 py-2 rounded w-full" %>
+    <%= f.submit "Save Filters", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
   <% end %>
 </div>
