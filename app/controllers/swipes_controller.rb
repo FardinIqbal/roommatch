@@ -3,10 +3,32 @@ class SwipesController < ApplicationController
 
   # GET /swipes
   def show
-    # Find the next user the current user has not already swiped on
-    @user_to_swipe = User.where.not(id: current_user.id)
-                         .where.not(id: current_user.sent_swipes.select(:swiped_id))
-                         .first
+    # Get users the current user hasn't swiped on
+    potential_matches = User.where.not(id: current_user.id)
+                            .where.not(id: current_user.sent_swipes.select(:swiped_id))
+
+    # Apply filters
+    if current_user.filter_same_school?
+      potential_matches = potential_matches.where(school: current_user.school)
+    end
+
+    if current_user.filter_smoking == true
+      potential_matches = potential_matches.where(smoking: false)
+    elsif current_user.filter_smoking == false
+      potential_matches = potential_matches.where(smoking: true)
+    end
+
+    if current_user.filter_clean == true
+      potential_matches = potential_matches.where(clean: true)
+    elsif current_user.filter_clean == false
+      potential_matches = potential_matches.where(clean: false)
+    end
+
+    if current_user.filter_sleep.present? && current_user.filter_sleep != "any"
+      potential_matches = potential_matches.where(sleep_schedule: current_user.filter_sleep)
+    end
+
+    @user_to_swipe = potential_matches.first
   end
 
   # POST /swipes
