@@ -1,38 +1,38 @@
-<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-2xl font-bold mb-6 text-center">Filter Preferences</h2>
+<div class="max-w-md mx-auto mt-10 p-8 bg-white/90 backdrop-blur shadow-xl rounded-2xl animate-fade-in relative z-10">
+  <h2 class="text-2xl font-extrabold mb-8 text-center text-[#ED4F30] drop-shadow">Filter Preferences</h2>
 
-  <%= form_with model: @user, url: filters_path, method: :patch, local: true do |f| %>
-    <div class="mb-4">
-      <%= f.label :filter_same_school, "Only show users from your school?", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :filter_same_school, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+  <%= form_with model: @user, url: filters_path, method: :patch, local: true, html: { class: "space-y-6" } do |f| %>
+    <div>
+      <%= f.label :filter_same_school, "Only show users from your school?", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.select :filter_same_school, [["Yes", true], ["No", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :filter_smoking, "Smoking preference", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :filter_smoking, [["Only non-smokers", true], ["Show all", ""], ["Only smokers", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <div>
+      <%= f.label :filter_smoking, "Smoking preference", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.select :filter_smoking, [["Only non-smokers", true], ["Show all", ""], ["Only smokers", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :filter_clean, "Cleanliness preference", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :filter_clean, [["Only clean roommates", true], ["Show all", ""], ["Only messy roommates", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <div>
+      <%= f.label :filter_clean, "Cleanliness preference", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.select :filter_clean, [["Only clean roommates", true], ["Show all", ""], ["Only messy roommates", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :filter_sleep, "Sleep schedule preference", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :filter_sleep, [["Any", "any"], ["Early Birds", "early"], ["Night Owls", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <div>
+      <%= f.label :filter_sleep, "Sleep schedule preference", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.select :filter_sleep, [["Any", "any"], ["Early Birds", "early"], ["Night Owls", "night"]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-6">
-      <%= f.label :filter_keywords, "Keyword Filter (comma-separated)", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :filter_keywords, placeholder: "e.g., gaming, gym, anime", class: "mt-1 block w-full border rounded p-2" %>
+    <div>
+      <%= f.label :filter_keywords, "Keyword Filter (comma-separated)", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.text_field :filter_keywords, placeholder: "e.g., gaming, gym, anime", class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 placeholder-[#A1A7C2] focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <%= f.submit "Save Filters", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
+    <%= f.submit "Save Filters", class: "w-full bg-[#ED4F30] hover:bg-[#EFDE56] text-white hover:text-[#990000] font-bold py-3 rounded-xl shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2 group" %>
   <% end %>
 
   <!-- Reset Button -->
-  <div class="mt-4 text-center">
+  <div class="mt-6 text-center">
     <%= button_to "Reset Filters", reset_filters_path, method: :post,
-                  class: "text-sm text-gray-600 hover:text-red-500 transition font-medium" %>
+                  class: "inline-block bg-[#ED4F30]/10 hover:bg-[#ED4F30]/20 text-[#ED4F30] font-bold px-4 py-2 rounded-full shadow transition" %>
   </div>
 </div>

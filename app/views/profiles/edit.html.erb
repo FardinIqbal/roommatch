@@ -1,74 +1,97 @@
-<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-2xl font-bold mb-6 text-center">Edit Your Profile</h2>
+<div class="max-w-md mx-auto mt-10 p-8 bg-white/90 backdrop-blur shadow-xl rounded-2xl animate-fade-in relative z-10">
+  <h2 class="text-2xl font-extrabold mb-8 text-center text-[#ED4F30] drop-shadow">Edit Your Profile</h2>
 
-  <%= form_with model: @user, url: profiles_path, method: :patch, local: true, html: { multipart: true } do |f| %>
-    <div class="mb-4">
-      <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :name, class: "mt-1 block w-full border rounded p-2" %>
+  <%= form_with model: @user, url: profiles_path, method: :patch, local: true, html: { multipart: true, class: "space-y-6" } do |f| %>
+    <% if @user.errors.any? %>
+      <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+        <p class="font-bold mb-2">Please fix the following:</p>
+        <ul class="list-disc ml-5">
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <!-- Avatar Upload & Preview -->
+    <div>
+      <label class="block text-sm font-semibold text-[#232323] mb-2">Profile Picture</label>
+      <div class="flex items-center gap-4">
+        <%= f.file_field :avatar, class: "block w-full border border-[#ED4F30]/30 rounded-lg p-2 bg-gray-50 focus:ring-2 focus:ring-[#ED4F30] transition" %>
+        <% if @user.avatar.attached? %>
+          <div class="flex flex-col items-center">
+            <%= image_tag @user.avatar.variant(resize_to_limit: [60, 60]), class: "rounded-full shadow border-2 border-[#ED4F30]/20" %>
+            <%= link_to "Remove", remove_avatar_profiles_path, method: :delete, data: { confirm: "Remove your profile picture?" }, class: "text-xs text-[#ED4F30] hover:underline mt-1" %>
+          </div>
+        <% end %>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :bio, "Bio", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :bio, rows: 4, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Name -->
+    <div>
+      <%= f.label :name, "Name", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.text_field :name, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] placeholder-[#A1A7C2] focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :school, "School", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :school, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Bio -->
+    <div>
+      <%= f.label :bio, "Bio", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.text_area :bio, rows: 3, placeholder: "Tell us about yourself...", class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] placeholder-[#A1A7C2] focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :major, "Major", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :major, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- School & Major (side by side on desktop) -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex-1">
+        <%= f.label :school, "School", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.text_field :school, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
+      <div class="flex-1">
+        <%= f.label :major, "Major", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.text_field :major, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :year_in_school, "Year in School", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :year_in_school, ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Year, Sleep, Clean (side by side on desktop) -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex-1">
+        <%= f.label :year_in_school, "Year", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :year_in_school, ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
+      <div class="flex-1">
+        <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :sleep_schedule, [["Early Bird", "early"], ["Night Owl", "night"]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
+      <div class="flex-1">
+        <%= f.label :clean, "Clean Roommate?", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :clean, [["Yes", true], ["No", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :sleep_schedule, [["Early Bird", "early"], ["Night Owl", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Hobbies -->
+    <div>
+      <%= f.label :hobbies, "Hobbies/Interests", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+      <%= f.text_area :hobbies, rows: 2, placeholder: "E.g. music, hiking, gaming...", class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] placeholder-[#A1A7C2] focus:ring-2 focus:ring-[#ED4F30] transition" %>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :clean, "Are You a Clean Roommate?", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :clean, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Guest Policy, Smoking, Pets (side by side on desktop) -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex-1">
+        <%= f.label :guest_policy, "Guest Policy", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :guest_policy, ["Okay with guests", "No guests preferred"], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
+      <div class="flex-1">
+        <%= f.label :smoking, "Do You Smoke?", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :smoking, [["Yes", true], ["No", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
+      <div class="flex-1">
+        <%= f.label :pets, "Do You Have Pets?", class: "block text-sm font-semibold text-[#232323] mb-1" %>
+        <%= f.select :pets, [["Yes", true], ["No", false]], {}, class: "block w-full border border-[#ED4F30]/20 rounded-lg p-3 bg-gray-50 text-[#232323] focus:ring-2 focus:ring-[#ED4F30] transition" %>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <%= f.label :hobbies, "Hobbies/Interests", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_area :hobbies, rows: 3, class: "mt-1 block w-full border rounded p-2" %>
+    <!-- Submit Button -->
+    <div>
+      <%= f.submit "Save Profile", class: "w-full bg-[#ED4F30] hover:bg-[#EFDE56] text-white hover:text-[#990000] font-bold py-3 rounded-xl shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2 group" %>
     </div>
-
-    <div class="mb-4">
-      <%= f.label :guest_policy, "Guest Policy", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :guest_policy, ["Okay with guests", "No guests preferred"], {}, class: "mt-1 block w-full border rounded p-2" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :smoking, "Do You Smoke?", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :smoking, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
-    </div>
-
-    <div class="mb-4">
-      <%= f.label :pets, "Do You Have Pets?", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.select :pets, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
-    </div>
-
-    <div class="mb-6">
-      <%= f.label :avatar, "Profile Picture", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.file_field :avatar, class: "mt-1 block w-full border rounded p-2" %>
-
-      <% if @user.avatar.attached? %>
-        <div class="mt-4 text-center">
-          <p class="text-sm text-gray-500 mb-2">Current Picture:</p>
-          <%= image_tag @user.avatar.variant(resize_to_limit: [150, 150]), class: "mx-auto rounded-full shadow" %>
-        </div>
-      <% end %>
-    </div>
-
-    <%= f.submit "Save Profile", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
   <% end %>
 </div>

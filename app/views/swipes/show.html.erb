@@ -1,74 +1,74 @@
-<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-2xl font-bold mb-4 text-center">Find Your Roommate</h2>
+<div class="max-w-md mx-auto mt-10 p-8 bg-white/90 backdrop-blur shadow-xl rounded-2xl animate-fade-in relative z-10">
+  <h2 class="text-2xl font-extrabold mb-6 text-center text-[#ED4F30] drop-shadow">Find Your Roommate</h2>
 
   <% if current_user.present? %>
-    <div class="mb-4 text-sm text-gray-700 flex flex-wrap gap-2 justify-center">
+    <div class="mb-5 text-sm text-[#232323] flex flex-wrap gap-2 justify-center">
       <% if current_user.filter_same_school? %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-university mr-1 text-indigo-600"></i> Same School
+        <span class="inline-flex items-center bg-[#ED4F30]/10 px-3 py-1 rounded-full font-semibold text-[#ED4F30] shadow">
+          <i class="fas fa-university mr-1"></i> Same School
         </span>
       <% end %>
 
       <% if current_user.filter_smoking == true %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-smoking-ban mr-1 text-red-500"></i> Non-smokers
+        <span class="inline-flex items-center bg-[#EFDE56]/10 px-3 py-1 rounded-full font-semibold text-[#990000] shadow">
+          <i class="fas fa-smoking-ban mr-1"></i> Non-smokers
         </span>
       <% elsif current_user.filter_smoking == false %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-smoking mr-1 text-gray-600"></i> Smokers
+        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full font-semibold text-gray-600 shadow">
+          <i class="fas fa-smoking mr-1"></i> Smokers
         </span>
       <% end %>
 
       <% if current_user.filter_clean == true %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-broom mr-1 text-blue-500"></i> Clean Only
+        <span class="inline-flex items-center bg-[#ED4F30]/10 px-3 py-1 rounded-full font-semibold text-[#ED4F30] shadow">
+          <i class="fas fa-broom mr-1"></i> Clean Only
         </span>
       <% elsif current_user.filter_clean == false %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-broom mr-1 text-gray-400"></i> Messy Only
+        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full font-semibold text-gray-400 shadow">
+          <i class="fas fa-broom mr-1"></i> Messy Only
         </span>
       <% end %>
 
       <% if current_user.filter_sleep == "early" %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-sun mr-1 text-yellow-400"></i> Early Birds
+        <span class="inline-flex items-center bg-[#EFDE56]/10 px-3 py-1 rounded-full font-semibold text-[#ED4F30] shadow">
+          <i class="fas fa-sun mr-1"></i> Early Birds
         </span>
       <% elsif current_user.filter_sleep == "night" %>
-        <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
-          <i class="fas fa-moon mr-1 text-indigo-500"></i> Night Owls
+        <span class="inline-flex items-center bg-[#ED4F30]/10 px-3 py-1 rounded-full font-semibold text-[#990000] shadow">
+          <i class="fas fa-moon mr-1"></i> Night Owls
         </span>
       <% end %>
 
       <% if current_user.filter_keywords.present? %>
         <% current_user.filter_keywords.downcase.split(",").map(&:strip).reject(&:blank?).each do |tag| %>
-          <span class="inline-flex items-center bg-gray-200 px-3 py-1 rounded-full">
-            <i class="fas fa-hashtag mr-1 text-gray-500"></i> <%= tag %>
+          <span class="inline-flex items-center bg-gray-200 px-3 py-1 rounded-full font-semibold text-gray-600 shadow">
+            <i class="fas fa-hashtag mr-1"></i> <%= tag %>
           </span>
         <% end %>
       <% end %>
     </div>
 
-    <div class="text-center mb-6">
+    <div class="text-center mb-8">
       <%= button_to "Reset Filters", reset_filters_path, method: :post,
-                    class: "inline-block bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-4 py-2 rounded" %>
+                    class: "inline-block bg-[#ED4F30]/10 hover:bg-[#ED4F30]/20 text-[#ED4F30] font-bold px-4 py-2 rounded-full shadow transition" %>
     </div>
   <% end %>
 
   <% if @user_to_swipe %>
     <%= render partial: "card", locals: { user: @user_to_swipe } %>
 
-    <div class="flex justify-center gap-6 mt-6">
+    <div class="flex justify-center gap-6 mt-8">
       <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: true), method: :post,
-                    class: "bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+                    class: "bg-[#ED4F30] hover:bg-[#EFDE56] text-white hover:text-[#990000] px-6 py-2 rounded-xl font-bold flex items-center gap-2 shadow transition-all duration-200" do %>
         <i class="fas fa-thumbs-up"></i> Like
       <% end %>
 
       <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: false), method: :post,
-                    class: "bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+                    class: "bg-gray-300 hover:bg-gray-400 text-gray-700 px-6 py-2 rounded-xl font-bold flex items-center gap-2 shadow transition-all duration-200" do %>
         <i class="fas fa-thumbs-down"></i> Pass
       <% end %>
     </div>
   <% else %>
-    <p class="text-center text-gray-500 mt-4">No more users to swipe on!</p>
+    <p class="text-center text-gray-400 mt-6 font-semibold">No more users to swipe on!</p>
   <% end %>
 </div>

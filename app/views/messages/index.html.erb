@@ -1,11 +1,17 @@
-<%# subscribe current_user to a unique stream shared with the match %>
+<%# Subscribe current_user to a unique stream shared with the match %>
 <%= turbo_stream_from [current_user, @match] %>
 
-<div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow rounded-lg flex flex-col h-[70vh]">
-  <h2 class="text-xl font-semibold mb-4 text-center">Chat with <%= @match.name %></h2>
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-white/90 backdrop-blur shadow-xl rounded-2xl flex flex-col h-[70vh] animate-fade-in relative z-10">
+  <h2 class="text-2xl font-extrabold mb-6 text-center text-[#ED4F30] drop-shadow animate-fade-in flex items-center justify-center gap-2">
+    Chat with <%= @match.name %>
+    <% if @match.verified? %>
+      <i class="fas fa-check-circle text-[#EFDE56]" title="Verified Student"></i>
+    <% end %>
+  </h2>
 
   <!-- message history -->
-  <div id="messages" class="flex-1 overflow-y-auto space-y-4 mb-4 px-2">
+  <div id="messages"
+       class="flex-1 overflow-y-auto space-y-3 mb-5 px-2 transition-all duration-300 scroll-smooth">
     <%= render partial: "messages/message",
                collection: @messages,
                as: :message,
@@ -17,18 +23,22 @@
                 url:   user_messages_path(@match),
                 data:  { controller: "message-form",
                          action: "turbo:submit-end->message-form#clear" },
-                class: "flex gap-2" do |f| %>
+                class: "flex gap-2 items-end animate-fade-in" do |f| %>
     <%= f.text_field :body,
                      placeholder: "Type your message…",
-                     class: "flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring",
+                     class: "flex-1 border border-[#ED4F30]/20 rounded-xl px-4 py-3 bg-gray-100 text-[#232323] placeholder-[#A1A7C2] focus:outline-none focus:ring-2 focus:ring-[#ED4F30] shadow transition-all duration-200",
                      autocomplete: "off" %>
     <%= f.submit "Send",
-                 class: "bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" %>
+                 class: "bg-[#ED4F30] text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-[#EFDE56] hover:text-[#990000] transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#ED4F30]" %>
   <% end %>
 </div>
 
 <script>
-    // auto-scroll to newest
-    const scroller = document.getElementById("messages");
-    if (scroller) scroller.scrollTop = scroller.scrollHeight;
+    // Auto-scroll to newest message on load and Turbo updates
+    function scrollToBottom() {
+        const scroller = document.getElementById("messages");
+        if (scroller) scroller.scrollTop = scroller.scrollHeight;
+    }
+    scrollToBottom();
+    document.addEventListener("turbo:before-stream-render", scrollToBottom);
 </script>

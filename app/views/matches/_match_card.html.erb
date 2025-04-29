@@ -1,75 +1,84 @@
-<div class="bg-white rounded-lg shadow p-4 mb-6">
+<div class="bg-white/90 backdrop-blur rounded-2xl shadow-xl p-6 mb-8 max-w-sm mx-auto animate-fade-in relative z-10">
   <% if match.avatar.attached? %>
-    <div class="flex justify-center mb-3">
-      <%= image_tag match.avatar.variant(resize_to_limit: [100, 100]), class: "rounded-full shadow" %>
+    <div class="flex justify-center mb-4">
+      <%= image_tag match.avatar.variant(resize_to_limit: [100, 100]), class: "rounded-full shadow-lg border-4 border-[#ED4F30]/20" %>
     </div>
   <% end %>
 
-  <h3 class="text-lg font-semibold text-center">
+  <h3 class="text-xl font-extrabold text-center mb-1 text-[#ED4F30] flex items-center justify-center gap-2">
     <%= match.name %>
     <% if match.verified? %>
-      <i class="fas fa-check-circle text-green-500 ml-1" title="Verified Student"></i>
+      <i class="fas fa-check-circle text-[#EFDE56] ml-1" title="Verified Student"></i>
     <% end %>
   </h3>
 
-  <p class="text-center text-gray-600 mb-2">
+  <p class="text-center text-[#232323] mb-3 font-medium">
     <%= match.school %>
-    <% if match.major.present? %>– <%= match.major %>
+    <% if match.major.present? %>
+      <span class="text-[#A1A7C2]">– <%= match.major %></span>
     <% end %>
   </p>
 
-  <div class="text-sm text-gray-700 space-y-1">
+  <div class="text-sm text-[#232323] space-y-2">
     <% if match.year_in_school.present? %>
-      <p><strong>Year:</strong> <%= match.year_in_school %></p>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-graduation-cap text-[#ED4F30]"></i>
+        <span><strong>Year:</strong> <%= match.year_in_school %></span>
+      </div>
     <% end %>
 
     <% if match.sleep_schedule.present? %>
-      <p><strong>Sleep:</strong> <%= match.sleep_schedule.titleize %></p>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-bed text-[#ED4F30]"></i>
+        <span><strong>Sleep:</strong> <%= match.sleep_schedule.titleize %></span>
+      </div>
     <% end %>
 
     <% unless match.clean.nil? %>
-      <p>
-        <strong>Cleanliness:</strong>
-        <i class="fas fa-broom text-blue-500 mr-1"></i>
-        <%= match.clean ? "Clean" : "Messy" %>
-      </p>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-broom <%= match.clean ? 'text-[#ED4F30]' : 'text-gray-400' %>"></i>
+        <span><strong>Clean:</strong> <%= match.clean ? "Clean" : "Messy" %></span>
+      </div>
     <% end %>
 
     <% if match.hobbies.present? %>
-      <p><strong>Hobbies:</strong> <%= match.hobbies %></p>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-heart text-[#EFDE56]"></i>
+        <span><strong>Hobbies:</strong> <%= match.hobbies %></span>
+      </div>
     <% end %>
 
     <% if match.guest_policy.present? %>
-      <p><strong>Guests:</strong> <%= match.guest_policy %></p>
+      <div class="flex items-center gap-2">
+        <i class="fas fa-user-friends text-[#ED4F30]"></i>
+        <span><strong>Guests:</strong> <%= match.guest_policy %></span>
+      </div>
     <% end %>
 
     <% unless match.smoking.nil? %>
-      <p>
-        <strong>Smoking:</strong>
-        <i class="fas <%= match.smoking ? 'fa-smoking' : 'fa-smoking-ban' %> text-gray-600 mr-1"></i>
-        <%= match.smoking ? "Smoker" : "Non-Smoker" %>
-      </p>
+      <div class="flex items-center gap-2">
+        <i class="fas <%= match.smoking ? 'fa-smoking text-[#ED4F30]' : 'fa-smoking-ban text-gray-400' %>"></i>
+        <span><strong>Smoking:</strong> <%= match.smoking ? "Smoker" : "Non-Smoker" %></span>
+      </div>
     <% end %>
 
     <% unless match.pets.nil? %>
-      <p>
-        <strong>Pets:</strong>
-        <i class="fas <%= match.pets ? 'fa-dog' : 'fa-ban' %> text-gray-600 mr-1"></i>
-        <%= match.pets ? "Has Pets" : "No Pets" %>
-      </p>
+      <div class="flex items-center gap-2">
+        <i class="fas <%= match.pets ? 'fa-dog text-[#EFDE56]' : 'fa-ban text-gray-400' %>"></i>
+        <span><strong>Pets:</strong> <%= match.pets ? "Has Pets" : "No Pets" %></span>
+      </div>
     <% end %>
   </div>
 
   <% if defined?(match_times) && match_times[match.id].present? %>
-    <p class="text-xs text-gray-400 text-center mt-2">
+    <p class="text-xs text-[#A1A7C2] text-center mt-3">
       Matched <%= time_ago_in_words(match_times[match.id].created_at) %> ago
     </p>
   <% end %>
 
-  <div class="mt-4 text-center">
-    <%= link_to user_messages_path(match), class: "inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold" do %>
-      <i class="fas fa-comments mr-2"></i> Message
+  <div class="mt-6 text-center">
+    <%= link_to user_messages_path(match), class: "inline-block bg-[#ED4F30] hover:bg-[#EFDE56] text-white hover:text-[#990000] px-5 py-2 rounded-xl shadow-lg font-bold transition-all duration-200 flex items-center justify-center gap-2" do %>
+      <i class="fas fa-comments"></i> Message
     <% end %>
-
   </div>
 </div>
