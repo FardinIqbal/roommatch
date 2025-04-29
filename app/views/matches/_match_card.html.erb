@@ -1,0 +1,37 @@
+<div class="bg-white rounded-lg shadow p-4 mb-6">
+  <% if match.avatar.attached? %>
+    <div class="flex justify-center mb-3">
+      <%= image_tag match.avatar.variant(resize_to_limit: [100, 100]), class: "rounded-full shadow" %>
+    </div>
+  <% end %>
+
+  <h3 class="text-lg font-semibold text-center"><%= match.name %></h3>
+  <p class="text-center text-gray-600 mb-2">
+    <%= match.school %>
+    <% if match.major.present? %>– <%= match.major %><% end %>
+  </p>
+
+  <div class="text-sm text-gray-700 space-y-1">
+    <% if match.year_in_school.present? %>
+      <p><strong>Year:</strong> <%= match.year_in_school %></p>
+    <% end %>
+    <% if match.sleep_schedule.present? %>
+      <p><strong>Sleep:</strong> <%= match.sleep_schedule.titleize %></p>
+    <% end %>
+    <% if match.clean != nil %>
+      <p><strong>Cleanliness:</strong> <%= match.clean ? "✅ Clean" : "🚫 Messy" %></p>
+    <% end %>
+    <% if match.hobbies.present? %>
+      <p><strong>Hobbies:</strong> <%= match.hobbies %></p>
+    <% end %>
+    <% if match.guest_policy.present? %>
+      <p><strong>Guests:</strong> <%= match.guest_policy %></p>
+    <% end %>
+    <% if match.smoking != nil %>
+      <p><strong>Smoking:</strong> <%= match.smoking ? "🚬 Smoker" : "🚭 Non-Smoker" %></p>
+    <% end %>
+    <% if match.pets != nil %>
+      <p><strong>Pets:</strong> <%= match.pets ? "🐶 Has Pets" : "🚫 No Pets" %></p>
+    <% end %>
+  </div>
+</div>

@@ -3,11 +3,7 @@
 
   <% if @matches.any? %>
     <% @matches.each do |match| %>
-      <div class="border p-4 mb-4 rounded shadow">
-        <p class="text-lg font-semibold"><%= match.name %></p>
-        <p class="text-gray-600"><%= match.school %></p>
-        <p class="text-gray-700"><%= match.bio %></p>
-      </div>
+      <%= render partial: "match_card", locals: { match: match } %>
     <% end %>
   <% else %>
     <p class="text-center text-gray-500">You have no matches yet. Keep swiping!</p>
