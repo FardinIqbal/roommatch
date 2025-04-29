@@ -12,17 +12,23 @@ class SwipesController < ApplicationController
   # POST /swipes
   def create
     swiped_user = User.find(params[:swiped_id])
+    liked = params[:liked] == 'true'
 
-    Swipe.create!(
-      swiper: current_user,
-      swiped: swiped_user,
-      liked: params[:liked] == 'true'
-    )
+    begin
+      Swipe.create!(
+        swiper: current_user,
+        swiped: swiped_user,
+        liked: liked
+      )
 
-    if params[:liked] == 'true' && Swipe.exists?(swiper: swiped_user, swiped: current_user, liked: true)
-      flash[:notice] = "It’s a match! You and #{swiped_user.name} liked each other."
-    else
-      flash[:notice] = "Swipe recorded successfully."
+      if liked && Swipe.exists?(swiper: swiped_user, swiped: current_user, liked: true)
+        flash[:notice] = "It’s a match! You and #{swiped_user.name} liked each other."
+      else
+        flash[:notice] = "Swipe recorded successfully."
+      end
+
+    rescue ActiveRecord::RecordNotUnique
+      flash[:alert] = "You’ve already swiped on this user."
     end
 
     redirect_to root_path
