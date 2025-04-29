@@ -17,9 +17,14 @@
       <%= f.select :filter_clean, [["Only clean roommates", true], ["Show all", ""], ["Only messy roommates", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
-    <div class="mb-6">
+    <div class="mb-4">
       <%= f.label :filter_sleep, "Sleep schedule preference", class: "block text-sm font-medium text-gray-700" %>
       <%= f.select :filter_sleep, [["Any", "any"], ["Early Birds", "early"], ["Night Owls", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :filter_keywords, "Keyword Filter (comma-separated)", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :filter_keywords, placeholder: "e.g., gaming, gym, anime", class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
     <%= f.submit "Save Filters", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
