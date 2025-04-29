@@ -9,42 +9,58 @@
   <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+
 <!-- Navbar -->
-<nav class="bg-white shadow-md">
-  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <div class="text-2xl font-bold text-blue-600">
-      RoomMatch
-    </div>
-    <div class="space-x-6">
-      <% if user_signed_in? %>
-        <%= link_to "Swipe", root_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-        <%= link_to "Matches", matches_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-        <%= link_to "Profile", edit_profiles_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-        <%= link_to "Filters", edit_filters_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-red-500 hover:text-red-700 font-semibold" %>
-      <% else %>
-        <%= link_to "Login", new_user_session_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-        <%= link_to "Sign Up", new_user_registration_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
-      <% end %>
+<nav class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex-shrink-0 text-2xl font-bold text-blue-600">
+        <%= link_to "RoomMatch", root_path, class: "hover:text-blue-700 transition" %>
+      </div>
+      <div class="hidden md:flex md:items-center md:space-x-8">
+        <% if user_signed_in? %>
+          <%= link_to "Swipe", root_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Matches", matches_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Profile", edit_profiles_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Filters", edit_filters_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-red-500 hover:text-red-700 font-semibold transition" %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "text-gray-700 hover:text-blue-600 font-semibold transition" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- Main content -->
-<main class="flex-grow container mx-auto px-6 py-10">
+<!-- Flash Messages -->
+<% flash.each do |type, message| %>
+  <% color_classes = case type.to_sym
+                     when :notice then "bg-green-100 text-green-800 border-green-300"
+                     when :alert then "bg-red-100 text-red-800 border-red-300"
+                     else "bg-blue-100 text-blue-800 border-blue-300"
+                     end %>
+
+  <div class="max-w-2xl mx-auto mt-6 p-4 border rounded-md <%= color_classes %>">
+    <p class="text-center font-semibold"><%= message %></p>
+  </div>
+<% end %>
+
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-10">
   <%= yield %>
 </main>
 
 <!-- Footer -->
-<footer class="bg-white border-t mt-12">
-  <div class="container mx-auto px-6 py-4 text-center text-sm text-gray-600">
+<footer class="bg-white border-t">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-gray-500">
     &copy; <%= Time.now.year %> RoomMatch. All rights reserved.
   </div>
 </footer>
+
 </body>
 </html>
