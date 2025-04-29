@@ -37,19 +37,21 @@
   </div>
 </nav>
 
-<!-- Flash Messages -->
-<% flash.each do |type, message| %>
-  <% next if message.blank? %>
-  <% color_classes = case type.to_sym
-                     when :notice then "bg-green-100 text-green-800 border-green-300"
-                     when :alert then "bg-red-100 text-red-800 border-red-300"
-                     else "bg-blue-100 text-blue-800 border-blue-300"
-                     end %>
+<!-- Toast Flash Messages (Bottom-Right) -->
+<div id="flash-container" class="fixed bottom-4 right-4 space-y-4 z-50">
+  <% flash.each do |type, message| %>
+    <% next if message.blank? %>
+    <% color_classes = case type.to_sym
+                       when :notice then "bg-green-100 text-green-800 border-green-300"
+                       when :alert then "bg-red-100 text-red-800 border-red-300"
+                       else "bg-blue-100 text-blue-800 border-blue-300"
+                       end %>
 
-  <div data-controller="flash" class="transition-opacity duration-1000 max-w-2xl mx-auto mt-6 px-4 py-3 border rounded-md <%= color_classes %> shadow-sm">
-    <p class="text-center font-semibold text-sm"><%= message %></p>
-  </div>
-<% end %>
+    <div data-controller="flash" class="transition-opacity duration-1000 px-6 py-4 rounded-md shadow-lg border <%= color_classes %>">
+      <p class="text-sm font-semibold"><%= message %></p>
+    </div>
+  <% end %>
+</div>
 
 <!-- Main Content -->
 <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-10">
