@@ -1,0 +1,61 @@
+<div class="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
+  <% if user.avatar.attached? %>
+    <div class="flex justify-center mb-4">
+      <%= image_tag user.avatar.variant(resize_to_limit: [120, 120]), class: "rounded-full shadow-md" %>
+    </div>
+  <% end %>
+
+  <h3 class="text-xl font-semibold text-center mb-1">
+    <%= user.name %>
+    <% if user.verified? %>
+      <i class="fas fa-check-circle text-green-500 ml-2" title="Verified Student"></i>
+    <% end %>
+  </h3>
+
+  <p class="text-center text-gray-600 mb-4">
+    <%= user.school %>
+    <% if user.major.present? %>– <%= user.major %><% end %>
+  </p>
+
+  <div class="space-y-1 text-sm text-gray-700">
+    <% if user.year_in_school.present? %>
+      <p><strong>Year:</strong> <%= user.year_in_school %></p>
+    <% end %>
+
+    <% if user.sleep_schedule.present? %>
+      <p><strong>Sleep:</strong> <%= user.sleep_schedule.titleize %></p>
+    <% end %>
+
+    <% unless user.clean.nil? %>
+      <p>
+        <strong>Clean:</strong>
+        <i class="fas fa-broom text-blue-500 mr-1"></i>
+        <%= user.clean ? "Clean" : "Messy" %>
+      </p>
+    <% end %>
+
+    <% if user.hobbies.present? %>
+      <p><strong>Hobbies:</strong> <%= user.hobbies %></p>
+    <% end %>
+
+    <% if user.guest_policy.present? %>
+      <p><strong>Guests:</strong> <%= user.guest_policy %></p>
+    <% end %>
+
+    <% unless user.smoking.nil? %>
+      <p>
+        <strong>Smoking:</strong>
+        <i class="fas <%= user.smoking ? 'fa-smoking' : 'fa-smoking-ban' %> text-gray-600 mr-1"></i>
+        <%= user.smoking ? "Smoker" : "Non-Smoker" %>
+      </p>
+    <% end %>
+
+    <% unless user.pets.nil? %>
+      <p>
+        <strong>Pets:</strong>
+        <i class="fas <%= user.pets ? 'fa-dog' : 'fa-ban' %> text-gray-600 mr-1"></i>
+        <%= user.pets ? "Has Pets" : "No Pets" %>
+      </p>
+    <% end %>
+  </div>
+</div>

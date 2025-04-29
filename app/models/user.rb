@@ -7,4 +7,5 @@ class User < ApplicationRecord
   # Associations for swiping
   has_many :sent_swipes, class_name: "Swipe", foreign_key: "swiper_id", dependent: :destroy
   has_many :received_swipes, class_name: "Swipe", foreign_key: "swiped_id", dependent: :destroy
+  has_one_attached :avatar
 end

@@ -5,7 +5,13 @@
     </div>
   <% end %>
 
-  <h3 class="text-lg font-semibold text-center"><%= match.name %></h3>
+  <h3 class="text-lg font-semibold text-center">
+    <%= match.name %>
+    <% if match.verified? %>
+      <i class="fas fa-check-circle text-green-500 ml-1" title="Verified Student"></i>
+    <% end %>
+  </h3>
+
   <p class="text-center text-gray-600 mb-2">
     <%= match.school %>
     <% if match.major.present? %>– <%= match.major %><% end %>
@@ -15,23 +21,54 @@
     <% if match.year_in_school.present? %>
       <p><strong>Year:</strong> <%= match.year_in_school %></p>
     <% end %>
+
     <% if match.sleep_schedule.present? %>
       <p><strong>Sleep:</strong> <%= match.sleep_schedule.titleize %></p>
     <% end %>
-    <% if match.clean != nil %>
-      <p><strong>Cleanliness:</strong> <%= match.clean ? "✅ Clean" : "🚫 Messy" %></p>
+
+    <% unless match.clean.nil? %>
+      <p>
+        <strong>Cleanliness:</strong>
+        <i class="fas fa-broom text-blue-500 mr-1"></i>
+        <%= match.clean ? "Clean" : "Messy" %>
+      </p>
     <% end %>
+
     <% if match.hobbies.present? %>
       <p><strong>Hobbies:</strong> <%= match.hobbies %></p>
     <% end %>
+
     <% if match.guest_policy.present? %>
       <p><strong>Guests:</strong> <%= match.guest_policy %></p>
     <% end %>
-    <% if match.smoking != nil %>
-      <p><strong>Smoking:</strong> <%= match.smoking ? "🚬 Smoker" : "🚭 Non-Smoker" %></p>
+
+    <% unless match.smoking.nil? %>
+      <p>
+        <strong>Smoking:</strong>
+        <i class="fas <%= match.smoking ? 'fa-smoking' : 'fa-smoking-ban' %> text-gray-600 mr-1"></i>
+        <%= match.smoking ? "Smoker" : "Non-Smoker" %>
+      </p>
     <% end %>
-    <% if match.pets != nil %>
-      <p><strong>Pets:</strong> <%= match.pets ? "🐶 Has Pets" : "🚫 No Pets" %></p>
+
+    <% unless match.pets.nil? %>
+      <p>
+        <strong>Pets:</strong>
+        <i class="fas <%= match.pets ? 'fa-dog' : 'fa-ban' %> text-gray-600 mr-1"></i>
+        <%= match.pets ? "Has Pets" : "No Pets" %>
+      </p>
+    <% end %>
+  </div>
+
+  <% if defined?(match_times) && match_times[match.id].present? %>
+    <p class="text-xs text-gray-400 text-center mt-2">
+      Matched <%= time_ago_in_words(match_times[match.id].created_at) %> ago
+    </p>
+  <% end %>
+
+  <div class="mt-4 text-center">
+    <%= button_to "#", method: :get,
+                  class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold" do %>
+      <i class="fas fa-comments mr-2"></i> Message
     <% end %>
   </div>
 </div>
