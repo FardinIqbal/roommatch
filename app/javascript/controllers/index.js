@@ -2,6 +2,8 @@
 import {application} from "controllers/application"
 import {eagerLoadControllersFrom} from "@hotwired/stimulus-loading"
 import FlashController from "./flash_controller"
+import MessageFormController from "./message_form_controller"
 
 eagerLoadControllersFrom("controllers", application)
 application.register("flash", FlashController)
+application.register("message-form", MessageFormController)

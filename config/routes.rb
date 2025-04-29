@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :swipes, only: [:show, :create]
   resources :matches, only: [:index]
 
+  # Messaging between matched users
+  resources :users, only: [] do
+    resources :messages, only: [:index, :create]
+  end
+
   # Health check (optional)
   get "up" => "rails/health#show", as: :rails_health_check
 end

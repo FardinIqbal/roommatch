@@ -29,4 +29,10 @@
 
     <%= f.submit "Save Filters", class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded w-full" %>
   <% end %>
+
+  <!-- Reset Button -->
+  <div class="mt-4 text-center">
+    <%= button_to "Reset Filters", reset_filters_path, method: :post,
+                  class: "text-sm text-gray-600 hover:text-red-500 transition font-medium" %>
+  </div>
 </div>

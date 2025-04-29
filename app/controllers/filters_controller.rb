@@ -14,6 +14,17 @@ class FiltersController < ApplicationController
     end
   end
 
+  def reset
+    current_user.update!(
+      filter_same_school: false,
+      filter_smoking: nil,
+      filter_clean: nil,
+      filter_sleep: nil,
+      filter_keywords: nil
+    )
+    redirect_to edit_filters_path, notice: "Filters reset to default."
+  end
+
   private
 
   def filter_params
@@ -21,7 +32,8 @@ class FiltersController < ApplicationController
       :filter_same_school,
       :filter_smoking,
       :filter_clean,
-      :filter_sleep
+      :filter_sleep,
+      :filter_keywords
     )
   end
 end

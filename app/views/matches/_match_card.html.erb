@@ -14,7 +14,8 @@
 
   <p class="text-center text-gray-600 mb-2">
     <%= match.school %>
-    <% if match.major.present? %>– <%= match.major %><% end %>
+    <% if match.major.present? %>– <%= match.major %>
+    <% end %>
   </p>
 
   <div class="text-sm text-gray-700 space-y-1">
@@ -66,9 +67,9 @@
   <% end %>
 
   <div class="mt-4 text-center">
-    <%= button_to "#", method: :get,
-                  class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold" do %>
+    <%= link_to user_messages_path(match), class: "inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold" do %>
       <i class="fas fa-comments mr-2"></i> Message
     <% end %>
+
   </div>
 </div>
