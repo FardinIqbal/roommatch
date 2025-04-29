@@ -18,6 +18,16 @@
     </div>
 
     <div class="mb-4">
+      <%= f.label :major, "Major", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :major, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :year_in_school, "Year in School", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :year_in_school, ["Freshman", "Sophomore", "Junior", "Senior", "Graduate"], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
       <%= f.label :sleep_schedule, "Sleep Schedule", class: "block text-sm font-medium text-gray-700" %>
       <%= f.select :sleep_schedule, [["Early Bird", "early"], ["Night Owl", "night"]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
@@ -25,6 +35,26 @@
     <div class="mb-4">
       <%= f.label :clean, "Are You a Clean Roommate?", class: "block text-sm font-medium text-gray-700" %>
       <%= f.select :clean, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :hobbies, "Hobbies/Interests", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :hobbies, rows: 3, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :guest_policy, "Guest Policy", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :guest_policy, ["Okay with guests", "No guests preferred"], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :smoking, "Do You Smoke?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :smoking, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :pets, "Do You Have Pets?", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.select :pets, [["Yes", true], ["No", false]], {}, class: "mt-1 block w-full border rounded p-2" %>
     </div>
 
     <div class="mb-6">
