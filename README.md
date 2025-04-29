@@ -1,24 +1,31 @@
-# README
+# RoomMatch
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RoomMatch is a minimal Tinder-style web app to help university students find compatible roommates. Built with Ruby on Rails and PostgreSQL, deployed on Heroku.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- User sign-up and login (Devise)
+- Swipe interface for liking/passing on roommate profiles
+- Matches page to see mutual likes
+- Profile editing (bio, school, preferences)
+- Filter page to select roommate preferences
+- Responsive UI with Tailwind CSS
 
-* System dependencies
+## Live Demo
 
-* Configuration
+https://roommatch.herokuapp.com
 
-* Database creation
+## Tech Stack
 
-* Database initialization
+- Ruby on Rails 7.1
+- PostgreSQL
+- Devise (authentication)
+- Tailwind CSS
+- Heroku (deployment)
 
-* How to run the test suite
+## Getting Started
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+bundle install
+rails db:setup
+bin/dev
