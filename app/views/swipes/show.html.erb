@@ -2,7 +2,7 @@
   <h2 class="text-2xl font-bold mb-4 text-center">Find Your Roommate</h2>
 
   <% if current_user.present? %>
-    <div class="mb-6 text-sm text-gray-700 flex flex-wrap gap-2 justify-center">
+    <div class="mb-4 text-sm text-gray-700 flex flex-wrap gap-2 justify-center">
       <% if current_user.filter_same_school? %>
         <span class="inline-flex items-center bg-gray-100 px-3 py-1 rounded-full">
           <i class="fas fa-university mr-1 text-indigo-600"></i> Same School
@@ -47,17 +47,24 @@
         <% end %>
       <% end %>
     </div>
+
+    <div class="text-center mb-6">
+      <%= button_to "Reset Filters", reset_filters_path, method: :post,
+                    class: "inline-block bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-4 py-2 rounded" %>
+    </div>
   <% end %>
 
   <% if @user_to_swipe %>
     <%= render partial: "card", locals: { user: @user_to_swipe } %>
 
     <div class="flex justify-center gap-6 mt-6">
-      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: true), method: :post, class: "bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: true), method: :post,
+                    class: "bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
         <i class="fas fa-thumbs-up"></i> Like
       <% end %>
 
-      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: false), method: :post, class: "bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
+      <%= button_to swipes_path(swiped_id: @user_to_swipe.id, liked: false), method: :post,
+                    class: "bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2" do %>
         <i class="fas fa-thumbs-down"></i> Pass
       <% end %>
     </div>

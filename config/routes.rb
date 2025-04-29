@@ -3,11 +3,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resource :filters, only: [:edit, :update]
+  resource :filters, only: [:edit, :update] do
+    post :reset, on: :collection
+  end
+
   resource :profiles, only: [:edit, :update]
   resources :swipes, only: [:show, :create]
   resources :matches, only: [:index]
 
-  # Health check (keep this if you want)
+  # Health check (optional)
   get "up" => "rails/health#show", as: :rails_health_check
 end
